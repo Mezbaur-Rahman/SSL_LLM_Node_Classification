@@ -1,0 +1,5 @@
+# Ignore specific files
+src/get_data.ipynb
+src/main.py
+src/test.ipynb
+src/ssl.ipynb
