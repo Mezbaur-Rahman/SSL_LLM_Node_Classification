@@ -11,6 +11,7 @@ from torch_geometric.transforms import NormalizeFeatures
 import sys
 sys.path.append('/home/mrahma56/cs519/project')
 from TAGLAS import get_dataset
+from models import *
 
 # Device configuration
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -273,7 +274,8 @@ def run_supervised(data, device, dataset="Cora",num_epochs=200,learning_rate=0.0
     #     data= data.to(device)
     
     data= data.to(device)
-    model = create_gcn_model(num_features=data.num_node_features, hidden_dim=hidden_channels, num_classes=data.num_classes, dropout=0.5).to(device)
+    # model = create_gcn_model(num_features=data.num_node_features, hidden_dim=hidden_channels, num_classes=data.num_classes, dropout=0.5).to(device)
+    model = GCN(num_features=data.num_features, hidden_dim=hidden_channels, num_classes=data.num_classes).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
@@ -313,7 +315,9 @@ def run_ssl(data, device, dataset="Cora",ulb_ratio=0.9,num_epochs=200,learning_r
     
     #print the device of data
     # print(data.device)
-    model = create_gcn_model(num_features=data.num_node_features, hidden_dim=hidden_channels, num_classes=data.num_classes, dropout=0.5).to(device)
+    # model = create_gcn_model(num_features=data.num_node_features, hidden_dim=hidden_channels, num_classes=data.num_classes, dropout=0.5).to(device)
+    model = GCN(num_features=data.num_features, hidden_dim=hidden_channels, num_classes=data.num_classes).to(device)
+
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
