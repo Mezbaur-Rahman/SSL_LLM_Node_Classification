@@ -301,7 +301,7 @@ def run_supervised(data, device, dataset="Cora",num_epochs=200,learning_rate=0.0
 
 
 
-def run_ssl(data, device, dataset="Cora",ulb_ratio=0.9,num_epochs=200,learning_rate=0.01,weight_decay=0.0005,hidden_channels=16,use_default_feats=True, print_logs=False):
+def run_ssl(data, device, dataset="Cora",ulb_ratio=0.9,num_epochs=200,learning_rate=0.01,weight_decay=0.0005,hidden_channels=16,alpha=0.1, th=0.7, print_logs=False):
     
     # dataset_key = dataset_key_dict[dataset]
     # if use_default_feats:
@@ -325,7 +325,7 @@ def run_ssl(data, device, dataset="Cora",ulb_ratio=0.9,num_epochs=200,learning_r
     best_test_acc = 0
 
     for epoch in range(1, num_epochs + 1):
-        low_conf_samples, total_loss, labeled_loss, const_loss, data = train_step_ssl(model, data, device, optimizer, dataset=dataset)
+        low_conf_samples, total_loss, labeled_loss, const_loss, data = train_step_ssl(model, data, device, optimizer, dataset=dataset, alpha=alpha, th=th)
         val_loss, val_acc = evaluate(model, data, 'val')
         test_loss, test_acc = evaluate(model, data, 'test')
 
